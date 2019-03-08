@@ -3,14 +3,15 @@ const path = require('path');
 // 'production' か 'development' を指定
 const MODE = 'development';
 // plugin
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const TerserPlugin = require('terser-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 
 module.exports = {
   // モード値を production に設定すると最適化された状態で、development に設定するとソースマップ有効でJSファイルが出力される
   mode: MODE,
   // developmentモードで有効になるdevtool: 'eval'を上書き
   devtool: 'source-map',
-
   // ローカル開発用環境を立ち上げる
   devServer: {
     open: true, //ブラウザを自動で開く
@@ -20,8 +21,36 @@ module.exports = {
     port: 3000, // ポート番号
   },
   // メインとなるJavaScriptファイル（エントリーポイント）
-  entry: './src/ts/main.ts',
-
+  entry: {
+    // main.js
+    'public/js/main': './src/ts/main.ts',
+    // scss
+    'public/css/style': './src/scss/style.scss'
+  },
+  output: {
+    // 出力するファイル名
+    filename: '[name].js',
+    // 出力先のパス（絶対パスを指定する必要がある）
+    path: path.resolve(__dirname, ''),
+    //ブラウザからバンドルにアクセスする際のパス
+    publicPath: "/js/"
+  },
+  optimization: {
+    minimizer: [
+      new TerserPlugin({
+        parallel: true,
+        sourceMap: true,
+      }),
+      new OptimizeCSSAssetsPlugin({
+        cssProcessorOptions: {
+          map: {
+            inline: false,
+            annotation: true,
+          }
+        }
+      }),
+    ],
+  },
   module: {
     rules: [
       // typescript
@@ -30,32 +59,22 @@ module.exports = {
         // TypeScript をコンパイルする
         use: 'ts-loader'
       },
-      // SCSS
+      // scss
       {
-        test: /\.(sa|sc|c)ss$/,
+        test: /\.scss$/,
         use: [
-          MiniCssExtractPlugin.loader,
           {
-            loader: 'css-loader',
-            options: {
-              url: false,
-              minimize: false, //圧縮するときは'true'
-            }
+            loader: MiniCssExtractPlugin.loader,
           },
           {
-            loader: 'sass-loader'
+            loader: 'css-loader',
+          },
+          {
+            loader: 'sass-loader',
           }
-        ]
+        ],
       }
     ]
-  },
-  output: {
-    // 出力するファイル名
-    filename: 'main.js',
-    // 出力先のパス（絶対パスを指定する必要がある）
-    path: path.join(__dirname, 'public/js'),
-    //ブラウザからバンドルにアクセスする際のパス
-    publicPath: "/js/"
   },
   // import 文で .ts ファイルを解決するため
   resolve: {
@@ -63,11 +82,11 @@ module.exports = {
       '.ts', '.js'
     ]
   },
-  // 使用するプラグイン
+  // cssをjsと別に出力する
   plugins: [
     new MiniCssExtractPlugin({
-      filename: '/public/css/style.css',
-    })
+      filename: 'public/css/style.css',
+    }),
   ]
 
 };
