@@ -1,5 +1,16 @@
-@import 'base', 'grid';
-@import 'node_modules/bootstrap-scss/bootstrap';
+// bootstrap
+@import '~bootstrap-scss/functions';
+@import '~bootstrap-scss/variables';
+@import '~bootstrap-scss/mixins';
+@import '~bootstrap-scss/reboot';
+@import '~bootstrap-scss/bootstrap-reboot.scss';
+
+// mystyles
+@import 'variables';
+@import 'mixin';
+@import 'module';
+
+
 
 
 
