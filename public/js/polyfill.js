@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = "./node_modules/@babel/polyfill/lib/index.js");
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -10232,41 +10232,7 @@ try {
 }
 
 
-/***/ }),
-
-/***/ "./src/js/main.js":
-/*!************************!*\
-  !*** ./src/js/main.js ***!
-  \************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-var promisetest = new Promise(function (resolve) {
-  setTimeout(function () {
-    resolve();
-  }, 5000);
-});
-promisetest.then(function () {
-  console.log('次の処理');
-});
-var bar = 10;
-var hoge = "hogehoge".concat(bar);
-console.log(hoge);
-
-/***/ }),
-
-/***/ 0:
-/*!**********************************************!*\
-  !*** multi @babel/polyfill ./src/js/main.js ***!
-  \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(/*! @babel/polyfill */"./node_modules/@babel/polyfill/lib/index.js");
-module.exports = __webpack_require__(/*! ./src/js/main.js */"./src/js/main.js");
-
-
 /***/ })
 
 /******/ });
-//# sourceMappingURL=main.js.map
+//# sourceMappingURL=polyfill.js.map

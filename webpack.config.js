@@ -24,7 +24,10 @@ module.exports = {
   // メインとなるJavaScriptファイル（エントリーポイント）
   entry: {
     // main.js
-    'js/main': './src/ts/main.ts',
+    // 'js/main': ['@babel/polyfill', './src/js/main.js'],
+    'js/polyfill': '@babel/polyfill',
+    'js/main': './src/js/main.js',
+    // 'js/main': './src/ts/main.ts',
     // scss(style.cssを出力)
     'css/style': './src/scss/style.scss'
   },
@@ -55,6 +58,17 @@ module.exports = {
   },
   module: {
     rules: [
+      // babel
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: [['@babel/preset-env']]
+          }
+        }
+      },
       // typescript
       {
         test: /\.ts$/,
