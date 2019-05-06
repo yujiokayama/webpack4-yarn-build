@@ -25,7 +25,7 @@ module.exports = {
   entry: {
     // main.js
     // 'js/main': ['@babel/polyfill', './src/js/main.js'],
-    'js/polyfill': '@babel/polyfill',
+    'js/polyfill': './node_modules/@babel/polyfill',
     'js/main': './src/js/main.js',
     // 'js/main': './src/ts/main.ts',
     // scss(style.cssを出力)
