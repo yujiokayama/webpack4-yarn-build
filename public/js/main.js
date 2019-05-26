@@ -86,13 +86,32 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./src/js/lib/sub.js":
+/*!***************************!*\
+  !*** ./src/js/lib/sub.js ***!
+  \***************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var hello = function hello() {
+  alert('hello');
+};
+
+/***/ }),
+
 /***/ "./src/js/main.js":
 /*!************************!*\
   !*** ./src/js/main.js ***!
   \************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _lib_sub__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./lib/sub */ "./src/js/lib/sub.js");
+/* harmony import */ var _lib_sub__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_lib_sub__WEBPACK_IMPORTED_MODULE_0__);
+
+hello();
 var promisetest = new Promise(function (resolve) {
   setTimeout(function () {
     resolve();

@@ -1,3 +1,7 @@
+import { Test } from './lib/sub';
+const test = new Test();
+test.hello();
+
 const promisetest = new Promise(resolve => {
   setTimeout(() => {
     resolve();
